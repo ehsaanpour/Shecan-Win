@@ -23,6 +23,8 @@ persian_texts = {
     "status_no_active_interface_found": "وضعیت: رابط شبکه فعال پیدا نشد.",
     "error_toggle_no_active_interface": "خطا: رابط شبکه فعال برای تغییر وضعیت وجود ندارد.",
     "guidance_text": "این برنامه توسط احسان احسانپور توسعه یافته است",
+    "powered_by_text": "powered by ", # Part 1 of the text
+    "shecan_link_text": "shecan.ir",     # Part 2, the linkable part
     "app_error_title": "خطای برنامه",
     "app_error_unexpected": "یک خطای پیش بینی نشده رخ داده است:",
     "main_exception_tclerror_messagebox": "خطای اصلی: TclError هنگام نمایش پیام خطا. ممکن است Tkinter قابل استفاده نباشد.",
@@ -139,7 +141,7 @@ class DNSToggler:
         print("DNSToggler __init__: Start")
         self.master = master
         master.title(persian_texts["window_title"])
-        master.geometry("420x280") # Slightly adjusted size
+        master.geometry("420x310") # Slightly adjusted size
         # master.configure(bg="#ECECEC") # Will be covered by gradient canvas
 
         # Font Definitions
@@ -203,6 +205,22 @@ class DNSToggler:
         self.guidance_label.bind("<Enter>", lambda e: self.guidance_label.config(font=hover_font_small_underline))
         self.guidance_label.bind("<Leave>", lambda e: self.guidance_label.config(font=self.font_small))
         
+        # Powered by Shecan Label
+        powered_by_frame = ttk.Frame(main_frame, style="TFrame")
+        powered_by_frame.pack(pady=(10,0), side=tk.BOTTOM, fill=tk.X) # Place at the bottom
+
+        powered_by_label_part1 = ttk.Label(powered_by_frame, text=persian_texts["powered_by_text"], font=self.font_small, style="TLabel")
+        powered_by_label_part1.pack(side=tk.LEFT) # Pack to the left
+
+        shecan_link_label = ttk.Label(powered_by_frame, text=persian_texts["shecan_link_text"], style="Url.TLabel", cursor="hand2", font=self.font_small)
+        shecan_link_label.pack(side=tk.LEFT) # Pack next to the first part
+        shecan_link_label.bind("<Button-1>", lambda e: self.open_shecan_main_site_url())
+        shecan_link_label.bind("<Enter>", lambda e: shecan_link_label.config(font=(self.font_family[0], 9, "underline")))
+        shecan_link_label.bind("<Leave>", lambda e: shecan_link_label.config(font=self.font_small))
+
+        # Adjust main_frame padding if necessary or overall window geometry slightly
+        # master.geometry("420x310") # Window height already adjusted
+
         if not self.is_admin():
             self.update_ui_for_state(admin_error=True)
             if self.toggle_switch: self.toggle_switch.config(state=tk.DISABLED)
@@ -340,6 +358,12 @@ class DNSToggler:
             webbrowser.open_new_tab("https://ehsaanpour.github.io/Me/index.html")
         except Exception as e:
             print(f"Error opening URL: {e}")
+
+    def open_shecan_main_site_url(self): # New method for shecan.ir link
+        try:
+            webbrowser.open_new_tab("https://shecan.ir/")
+        except Exception as e:
+            print(f"Error opening shecan.ir URL: {e}")
 
     def is_admin(self):
         print("is_admin: Checking...")
