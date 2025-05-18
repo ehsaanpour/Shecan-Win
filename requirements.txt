@@ -1,0 +1,4 @@
+# This application uses only Python standard libraries.
+# No external packages need to be installed via pip.
+#
+# Required Python version: 3.x 
