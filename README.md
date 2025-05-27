@@ -2,6 +2,11 @@
 
 A simple Python application with a Tkinter GUI to quickly toggle DNS settings on your active Windows network interface.
 
+## Download
+Download for Windows.
+EXE: https://github.com/ehsaanpour/Shecan-Win/blob/main/dist/ShecanToggler.exe
+ZIP: https://github.com/ehsaanpour/Shecan-Win/blob/main/dist/ShecanToggler.zip
+
 ## Features
 
 -   **One-Click Toggle**: Easily switch your IPv4 DNS settings on or off.
